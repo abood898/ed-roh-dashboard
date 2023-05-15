@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import Affiliatestat from "../models/Affiliatestat.js";
@@ -25,19 +24,21 @@ export const getUserPerformance = async (req, res) => {
       affiliateStats,
     };
 
-    const saleTransactions = await Promise.all(
-      userWithStats.affiliateStats[0].affiliateSales.map((id) => {
-        return Transaction.findById(id);
-      })
-    );
-    const filteredSaleTransactions = saleTransactions.filter(
-      (transaction) => transaction !== null
-    );
+    const saleTransactions =
+      affiliateStats.length > 0
+        ? await Promise.all(
+            userWithStats.affiliateStats[0].affiliateSales.map((id) => {
+              return Transaction.findById(id);
+            })
+          )
+        : undefined;
+    const filteredSaleTransactions =
+      saleTransactions &&
+      saleTransactions.filter((transaction) => transaction !== null);
 
     res
       .status(200)
       .json({ user: userWithStats, sales: filteredSaleTransactions });
-    // res.status(200).json({ user: userWithStats });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
