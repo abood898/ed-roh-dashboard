@@ -2,7 +2,7 @@
 
 ECOMVISION is an admin dashboard used to keep track of products, customers, transactions and statistics associated with your application.
 
-It was built using the MongoDB, Express, React, NodeJS (MERN) stack with the help of react redux and is based on the Model, View, Controller (MVC) structure
+It was built using the MongoDB, Express, React, NodeJS (MERN) stack with the help of react redux and is based on the Model, View, Controller (MVC) architecture
 
 It uses nivo charts to help display stats and has a lovely theme with the help of Material UI
 
